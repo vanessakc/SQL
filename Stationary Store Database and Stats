@@ -1,6 +1,6 @@
 -- Create a stationary store database 
 
-CREATE TABLE stationary_inventory (id INTEGER PRIMARY KEY, item TEXT, cost INTEGER, current_stock INTEGER, aisle INTEGER); 
+CREATE TABLE stationary_inventory (id INTEGER PRIMARY KEY, item TEXT, cost NUMERIC, current_stock INTEGER, aisle INTEGER); 
 
 INSERT INTO stationary_inventory VALUES (1, "paper bookmark", 2.50, 25, 6); 
 INSERT INTO stationary_inventory VALUES (2, "sticker", 0.50, 50, 1);
