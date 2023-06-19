@@ -65,4 +65,5 @@ FROM marvels;
 SELECT gender, AVG(strength) 
 FROM marvels 
 GROUP BY gender 
-HAVING intelligence > 3.6;
+HAVING intelligence > (SELECT AVG(intelligence) 
+                       FROM marvels);
