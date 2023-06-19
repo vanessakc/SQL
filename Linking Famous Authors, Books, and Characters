@@ -1,0 +1,56 @@
+--Create a table of famous authors
+CREATE TABLE authors (id INTEGER PRIMARY KEY AUTOINCREMENT, fullname TEXT, age INTEGER); 
+INSERT INTO authors (fullname, age) VALUES ("Margaret Atwood", 83); 
+INSERT INTO authors (fullname, age) VALUES ("JK Rowling", 57); 
+INSERT INTO authors (fullname, age) VALUES ("John Green", 45); 
+INSERT INTO authors (fullname, age) VALUES ("Michael Chabon", 60); 
+INSERT INTO authors (fullname, age) VALUES ("Khaled Hosseini", 58); 
+
+--Create a table of books that links to authors table
+CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, author_id INTEGER); 
+INSERT INTO books (title, author_id) 
+VALUES 
+("The Handmaid's Tale", 1), 
+("Oryx and Crake", 1), 
+("Harry Potter and the Prisoner of Azkaban", 2), 
+("Harry Potter and the Order of the Phoenix", 2), 
+("Paper Towns", 3), 
+("Looking for Alaska", 3), 
+("Moonglow", 4), 
+("Wonder Boys", 4), 
+("A Thousand Splendid Suns", 5), 
+("The Kite Runner", 5); 
+
+--Create a table of characters that links to both authors and books tables
+CREATE TABLE characters (id INTEGER PRIMARY KEY AUTOINCREMENT, character_name TEXT, book_id INTEGER, author_id INTEGER); 
+INSERT INTO characters (character_name, book_id, author_id) 
+VALUES 
+("Offred", 1, 1), 
+("Snowman", 2, 1), 
+("Sirius Black", 3, 2), 
+("Dolores Umbridge", 4, 2), 
+("Quentin Jacobsen", 5, 3), 
+("Alaska Young", 6, 3), 
+("My Grandfather", 7, 4), 
+("Grady Tripp", 8, 4), 
+("Mariam", 9, 5), 
+("Amir", 10, 5); 
+
+--Display each character alongside which book they appear in, as well as the author of each book 
+SELECT character_name, title, fullname 
+FROM characters 
+JOIN books ON characters.book_id = books.id 
+JOIN authors ON books.author_id = authors.id;
+
+--Which characters were written by the author John Green? 
+SELECT character_name
+FROM characters 
+JOIN authors ON characters.author_id = authors.id
+WHERE fullname = "John Green"; 
+
+--Which author created the character Sirius Black, and in what book does he appear in? 
+SELECT character_name, fullname, title 
+FROM characters 
+JOIN authors ON characters.author_id = authors.id 
+JOIN books ON characters.book_id = books.id 
+WHERE character_name = "Sirius Black";
