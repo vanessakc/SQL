@@ -1,0 +1,81 @@
+-- This project uses data from the Chinook database 
+
+--Show Customers (their full names, customer ID, and country) who are not in the US
+SELECT
+    CustomerId,
+    FirstName, 
+    LastName, 
+    Country 
+FROM customers
+WHERE Country <> 'USA'; 
+
+--Find the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, Invoice ID, Date of the invoice, and billing country
+SELECT 
+    FirstName, 
+    LastName,
+    InvoiceId,
+    InvoiceDate, 
+    BillingCountry
+FROM customers 
+LEFT JOIN invoices ON customers.CustomerId = invoices.CustomerId
+WHERE Country = 'Brazil';
+
+--Find a unique/distinct list of billing countries from the Invoice table
+SELECT 
+    DISTINCT(BillingCountry) 
+FROM invoices;
+    
+--Provide a query that shows the invoices associated with each sales agent. The resulting table should include the Sales Agent's full name
+SELECT 
+    FirstName, 
+    LastName,
+    InvoiceId
+FROM employees
+JOIN customers ON employees.EmployeeId = customers.SupportRepId 
+JOIN invoices ON customers.CustomerId = invoices.CustomerId 
+WHERE employees.Title = 'Sales Support Agent';
+
+--What were the total sales for 2009?
+SELECT SUM(Total)
+FROM Invoices
+WHERE InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31';  
+
+--Which sales agent made the most dollars in sales in 2009?
+SELECT 
+    FirstName, 
+    LastName, 
+    ROUND(SUM(Total)) AS TotalSales 
+FROM employees 
+JOIN customers ON employees.EmployeeId = customers.SupportRepId
+JOIN invoices ON customers.CustomerId = invoices.CustomerId
+WHERE employees.Title = 'Sales Support Agent' AND InvoiceDate LIKE '2009%'
+GROUP BY EmployeeId
+ORDER BY TotalSales DESC;
+
+--Which country has spent the most on music by Aerosmith and how does it compare to other countries? 
+SELECT 
+    Country, 
+    ROUND(SUM(Total)) AS AerosmithSales
+FROM customers 
+JOIN invoices ON customers.CustomerId = invoices.CustomerId
+JOIN invoice_items ON invoices.InvoiceId = invoice_items.InvoiceId
+JOIN tracks ON invoice_items.TrackId = tracks.TrackId
+JOIN albums ON tracks.AlbumId = albums.AlbumId
+JOIN artists ON albums.ArtistId = artists.ArtistId 
+WHERE artists.Name = 'Aerosmith'
+GROUP BY Country
+ORDER BY AerosmithSales DESC;
+
+--Which media type is least popular among customers from the US? 
+SELECT
+    media_types.Name, 
+    COUNT(*)
+FROM media_types 
+JOIN tracks ON media_types.MediaTypeId = tracks.MediaTypeId
+JOIN invoice_items ON tracks.Trackid = invoice_items.TrackId 
+JOIN invoices ON invoice_items.InvoiceId = invoices.InvoiceId
+JOIN customers ON invoices.CustomerId = customers.CustomerId
+WHERE Country = 'USA'
+GROUP BY media_types.Name
+ORDER BY COUNT(*)
+LIMIT 1;
