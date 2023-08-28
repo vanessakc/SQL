@@ -1,7 +1,7 @@
--- For this project, I downloaded Spotify data from Kaggle.
--- I then created a table to insert Spotify data into and performed analytics on the data using SQL. 
+--For this project, I downloaded Spotify data from Kaggle.
+--I then created a table to insert Spotify data into and performed analytics on the data using SQL. 
 
--- Creating the table: 
+--Creating the table: 
 CREATE TABLE BIT_DB.Spotifydata (
 id integer PRIMARY KEY,
 artist_name varchar NOT NULL,
@@ -23,9 +23,9 @@ duration_ms integer NOT NULL,
 time_signature integer NOT NULL 
 );
 
--- Then I inserted the Spotify Data .csv into the table and explored the data using the following SQL: 
+--Then I inserted the Spotify Data .csv into the table and explored the data using the following SQL: 
 
--- Who are the Top 10 artists based on average danceability? 
+--Who are the Top 10 artists based on average danceability? 
 SELECT 
     artist_name, 
     AVG(danceability) 
