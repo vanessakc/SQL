@@ -1,0 +1,53 @@
+--This project uses data from a fictional social media site FindingFastFriends created by the learning platform Pathstream 
+
+--Write a query that returns the email address and friend count of the user with the most friends
+SELECT 
+   email, 
+   friend_count 
+FROM users 
+ORDER BY friend_count DESC
+LIMIT 1;
+
+--Write a query that returns the username and number of requests sent by the three users who have sent the most friend requests
+SELECT 
+   username, 
+   COUNT(action_taken) num_friend_requests
+FROM users 
+JOIN friend_requests ON users.user_id = friend_requests.requester_id 
+WHERE action_taken = “Requested”
+GROUP BY requester_id 
+ORDER BY num_friend_requests DESC 
+LIMIT 3;
+
+--Write a query to determine the number of Accepted friend requests 
+SELECT 
+   COUNT(action_taken) num_accepted_requests
+FROM friend_requests 
+WHERE action_taken = “Accepted”;
+
+--Write a query to determine the percentage of requests that are Accepted 
+SELECT 
+   (SELECT 
+      COUNT(action_taken) 
+    FROM friend_requests 
+    WHERE action_taken = “Accepted”) /
+   (SELECT 
+       COUNT(action_taken) 
+    FROM friend_requests) * 100;
+
+--Write a query to count the number of messages that include the phrase "Miss you"
+SELECT 
+   COUNT(message) 
+FROM messages 
+WHERE LOWER(message) LIKE “%miss you%”;
+
+--Write a query to determine which users have more than 10 unread messages 
+SELECT 
+   username, 
+   COUNT(message) num_unread_messages
+FROM users 
+JOIN messages ON users.user_id = messages.to_user_id 
+WHERE date_read IS NULL 
+GROUP BY user_id 
+HAVING num_unread_messages > 10;
+
