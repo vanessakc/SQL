@@ -1,4 +1,4 @@
--- This project uses data from the Chinook database 
+--This project uses data from the Chinook database 
 
 --Show Customers (their full names, customer ID, and country) who are not in the US
 SELECT
