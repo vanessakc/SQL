@@ -1,4 +1,4 @@
--- Create a stationary store database 
+--Create a stationary store database 
 
 CREATE TABLE stationary_inventory (id INTEGER PRIMARY KEY, item TEXT, cost NUMERIC, current_stock INTEGER, aisle INTEGER); 
 
@@ -18,17 +18,17 @@ INSERT INTO stationary_inventory VALUES (13, "stapler", 6.00, 5, 5);
 INSERT INTO stationary_inventory VALUES (14, "staples", 2.00, 10, 5); 
 INSERT INTO stationary_inventory VALUES (15, "marker", 2.00, 15, 4); 
 
--- Display database ordered by most to least expensive item 
+--Display database ordered by most to least expensive item 
 SELECT * 
 FROM stationary_inventory 
 ORDER BY cost DESC; 
 
--- What is the current total number of items in the store? 
+--What is the current total number of items in the store? 
 SELECT 
 SUM(current_stock) 
 FROM stationary_inventory; 
 
--- Which aisles are the five least expensive items in the store located? 
+--Which aisles are the five least expensive items in the store located? 
 SELECT 
   item, 
   cost, 
