@@ -34,7 +34,7 @@ GROUP BY artist_name
 ORDER BY AVG(danceability) DESC
 LIMIT 10; 
 
---Which song ranks the least in speechiness, and which aritst is it by? 
+--Which song ranks the least in speechiness, and which artist is it by? 
 SELECT 
     track_name, 
     artist_name,
