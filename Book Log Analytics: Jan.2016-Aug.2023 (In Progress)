@@ -1,0 +1,15 @@
+--For this project, I created a dataset based on my own records of books I've read from January 2016-August 2023.
+--I then created a table to insert this data into and performed analytics on the data using SQL. 
+
+--Creating the table: 
+CREATE TABLE BIT_DB.BookStats (
+id INTEGER PRIMARY KEY, 
+title VARCHAR, 
+author VARCHAR,
+genre VARCHAR,
+pages INTEGER, 
+start_date DATE,
+finish_date DATE, 
+rating INTEGER, 
+series VARCHAR, 
+would_read_again VARCHAR)
